@@ -29,6 +29,7 @@ function createPoll(
   pollOptions: string[]
 ): HTMLElement {
   const containerEl = document.createElement("div");
+  containerEl.setAttribute("id", `#${pollId}`);
   containerEl.classList.add("main-container");
 
   //get local storage data
@@ -124,6 +125,7 @@ function createPoll(
       totalVotesEl.textContent = `${totalVotes} ${
         totalVotes > 1 ? "votes" : "vote"
       }`;
+      totalVotesEl.classList.add("total-vote");
       totalVotesEl.style.color = "#a8a8a8";
       footerContainer.appendChild(totalVotesEl);
     }
@@ -165,4 +167,11 @@ function embedPoll(selector: string, polls: IPoll[]): void {
   }
 }
 
+declare global {
+  interface Window {
+    embedPoll: typeof embedPoll;
+  }
+}
 window.embedPoll = embedPoll;
+
+export { createPoll, embedPoll };

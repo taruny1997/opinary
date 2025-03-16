@@ -1,4 +1,7 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createPoll = createPoll;
+exports.embedPoll = embedPoll;
 //update poll options in UI & local storage when poll options are edited
 function updateLsData(data, pollId, optionsLength) {
     let res = [];
@@ -15,6 +18,7 @@ function updateLsData(data, pollId, optionsLength) {
 }
 function createPoll(pollId, pollQuestion, pollOptions) {
     const containerEl = document.createElement("div");
+    containerEl.setAttribute("id", `#${pollId}`);
     containerEl.classList.add("main-container");
     //get local storage data
     const currLocStorageData = JSON.parse(localStorage.getItem(pollId) || "[]");
@@ -87,6 +91,7 @@ function createPoll(pollId, pollQuestion, pollOptions) {
         if (totalVotes > 0) {
             const totalVotesEl = document.createElement("span");
             totalVotesEl.textContent = `${totalVotes} ${totalVotes > 1 ? "votes" : "vote"}`;
+            totalVotesEl.classList.add("total-vote");
             totalVotesEl.style.color = "#a8a8a8";
             footerContainer.appendChild(totalVotesEl);
         }
