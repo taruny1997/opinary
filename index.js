@@ -1,7 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPoll = createPoll;
-exports.embedPoll = embedPoll;
 //update poll options in UI & local storage when poll options are edited
 function updateLsData(data, pollId, optionsLength) {
     let res = [];
@@ -122,3 +119,4 @@ function embedPoll(selector, polls) {
         });
     }
 }
+window.embedPoll = embedPoll;

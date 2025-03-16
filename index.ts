@@ -165,4 +165,4 @@ function embedPoll(selector: string, polls: IPoll[]): void {
   }
 }
 
-export { createPoll, embedPoll };
+window.embedPoll = embedPoll;
