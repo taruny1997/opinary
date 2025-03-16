@@ -11,7 +11,7 @@ h2 {
 }
 .result-bar {
   position: relative;
-  height: 1.5rem;
+  padding: 6px;
   border-radius: 25px;
   margin-bottom: 0.5rem;
 }
@@ -19,8 +19,6 @@ h2 {
   position: relative;
   z-index: 1;
   font-size: 14px;
-  top: 0.2rem;
-  left: 0.5rem;
 }
 .progress-bar {
   position: absolute;
@@ -36,7 +34,7 @@ h2 {
   border: 1px solid #0058ff;
   margin: 0.25rem auto;
   border-radius: 1rem;
-  padding: 6px 0;
+  padding: 6px;
   color: #0058ff;
   cursor: pointer;
   background-color: #fff;
