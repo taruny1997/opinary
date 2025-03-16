@@ -3,30 +3,30 @@ const { createPoll, embedPoll } = require("./index");
 describe("createPoll", () => {
   test("should create a poll with question and options", () => {
     const pollId = "poll1";
-    const question = "What is your favorite color?";
-    const options = ["Red", "Blue", "Green"];
+    const pollQuestion = "What is your favorite color?";
+    const pollOptions = ["Red", "Blue", "Green"];
 
-    const pollElement = createPoll(pollId, question, options);
+    const pollElement = createPoll(pollId, pollQuestion, pollOptions);
 
     expect(pollElement).toBeInstanceOf(HTMLElement);
-    expect(pollElement.querySelector("h2").textContent).toBe(question);
+    expect(pollElement.querySelector("h2").textContent).toBe(pollQuestion);
 
     const buttons = pollElement.querySelectorAll(".option-button");
-    expect(buttons.length).toBe(options.length);
-    options.forEach((option, index) => {
+    expect(buttons.length).toBe(pollOptions.length);
+    pollOptions.forEach((option, index) => {
       expect(buttons[index].textContent).toBe(option);
     });
   });
 
   test("should update votes correctly", () => {
     const pollId = "poll2";
-    const question = "Favorite food?";
-    const options = ["Pizza", "Burger", "Pasta"];
+    const pollQuestion = "Favorite food?";
+    const pollOptions = ["Pizza", "Burger", "Pasta"];
 
-    const pollElement = createPoll(pollId, question, options);
+    const pollElement = createPoll(pollId, pollQuestion, pollOptions);
     const buttons = pollElement.querySelectorAll(".option-button");
 
-    expect(buttons.length).toBe(options.length);
+    expect(buttons.length).toBe(pollOptions.length);
     buttons[0].click();
 
     const storedVotes = JSON.parse(localStorage.getItem(pollId));
@@ -35,10 +35,10 @@ describe("createPoll", () => {
 
   test("should display the correct total votes count when votes exist", () => {
     const pollId = "poll7";
-    const question = "Favorite fruit?";
-    const options = ["Apple", "Banana", "Orange"];
+    const pollQuestion = "Favorite fruit?";
+    const pollOptions = ["Apple", "Banana", "Orange"];
 
-    const pollElement = createPoll(pollId, question, options);
+    const pollElement = createPoll(pollId, pollQuestion, pollOptions);
     const button = pollElement.querySelector(".option-button");
     button.click();
 
@@ -49,10 +49,10 @@ describe("createPoll", () => {
 
   test("should allow undoing a vote correctly", () => {
     const pollId = "poll3";
-    const question = "Best programming language?";
-    const options = ["JavaScript", "Python", "Java"];
+    const pollQuestion = "Best programming language?";
+    const pollOptions = ["JavaScript", "Python", "Java"];
 
-    const pollElement = createPoll(pollId, question, options);
+    const pollElement = createPoll(pollId, pollQuestion, pollOptions);
     const buttons = pollElement.querySelectorAll(".option-button");
     buttons[0].click();
 
