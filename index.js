@@ -49,48 +49,59 @@ function createPoll(pollId, pollQuestion, pollOptions) {
         questionEl.textContent = pollQuestion;
         containerEl.appendChild(questionEl);
         const totalVotes = storedVotes.reduce((a, b) => a + b, 0);
-        //remove click event if already voted
+        //get current user vote data from memory
         const userVotedData = actionHistory === null || actionHistory === void 0 ? void 0 : actionHistory.find((x) => x.pollId === pollId);
-        const resultsContainer = document.createElement("div");
-        resultsContainer.setAttribute("id", `${pollId}_results`);
         if (userVotedData) {
-            resultsContainer.classList.add("pointer-none");
+            const resultsContainer = document.createElement("div");
+            resultsContainer.setAttribute("id", `${pollId}_results`);
+            resultsContainer.classList.add("mt-2");
+            pollOptions.forEach((option, index) => {
+                const percentage = totalVotes
+                    ? (storedVotes[index] / totalVotes) * 100
+                    : 0;
+                const resultBar = document.createElement("div");
+                resultBar.classList.add("result-bar");
+                resultBar.setAttribute("id", `${pollId}_result_bar_${index}`);
+                const progressBar = document.createElement("div");
+                progressBar.setAttribute("id", `${pollId}_progress_bar_${index}`);
+                progressBar.style.width = `${percentage}%`;
+                progressBar.classList.add("progress-bar");
+                const resultText = document.createElement("span");
+                resultText.textContent = `${option}: ${storedVotes[index]} (${percentage.toFixed(1)}%) ${(userVotedData === null || userVotedData === void 0 ? void 0 : userVotedData.index) === index ? "\u2705" : ""}`;
+                resultText.classList.add("result-text");
+                resultBar.appendChild(progressBar);
+                resultBar.appendChild(resultText);
+                resultsContainer.appendChild(resultBar);
+            });
+            containerEl.appendChild(resultsContainer);
         }
-        resultsContainer.classList.add("mt-2");
-        pollOptions.forEach((option, index) => {
-            const percentage = totalVotes
-                ? (storedVotes[index] / totalVotes) * 100
-                : 0;
-            const resultBar = document.createElement("div");
-            resultBar.classList.add("result-bar");
-            resultBar.setAttribute("id", `${pollId}_result_bar_${index}`);
-            const progressBar = document.createElement("div");
-            progressBar.setAttribute("id", `${pollId}_progress_bar_${index}`);
-            progressBar.style.width = `${percentage}%`;
-            progressBar.classList.add("progress-bar");
-            const resultText = document.createElement("span");
-            resultText.textContent = `${option}: ${storedVotes[index]} (${percentage.toFixed(1)}%) ${(userVotedData === null || userVotedData === void 0 ? void 0 : userVotedData.index) === index ? "\u2705" : ""}`;
-            resultText.classList.add("result-text");
-            if (percentage > 60) {
-                resultText.classList.add("text-white");
-            }
-            resultText.onclick = () => updatePoll(index, "add");
-            resultBar.appendChild(progressBar);
-            resultBar.appendChild(resultText);
-            resultsContainer.appendChild(resultBar);
-        });
-        containerEl.appendChild(resultsContainer);
+        else {
+            pollOptions.forEach((option, index) => {
+                const optionButtonEl = document.createElement("button");
+                optionButtonEl.textContent = option;
+                optionButtonEl.classList.add("option-button");
+                optionButtonEl.onclick = () => updatePoll(index, "add");
+                containerEl.appendChild(optionButtonEl);
+            });
+        }
+        const footerContainer = document.createElement("div");
+        footerContainer.classList.add("flex", "justify-between", "mt-2");
+        //show vote count if any user has voted
+        if (totalVotes > 0) {
+            const totalVotesEl = document.createElement("span");
+            totalVotesEl.textContent = `${totalVotes} ${totalVotes > 1 ? "votes" : "vote"}`;
+            totalVotesEl.style.color = "#a8a8a8";
+            footerContainer.appendChild(totalVotesEl);
+        }
         //show undo button once user has chosen an option
         if (userVotedData) {
-            const undoBtnElContainer = document.createElement("div");
-            undoBtnElContainer.classList.add("flex", "justify-center");
             const undoBtnEl = document.createElement("button");
             undoBtnEl.textContent = "Undo";
             undoBtnEl.classList.add("undo-btn");
             undoBtnEl.onclick = () => updatePoll(userVotedData.index, "remove");
-            undoBtnElContainer.appendChild(undoBtnEl);
-            containerEl.appendChild(undoBtnElContainer);
+            footerContainer.appendChild(undoBtnEl);
         }
+        containerEl.appendChild(footerContainer);
     }
     renderPoll();
     return containerEl;
