@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opinary Test Challenge</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div id="widgetContainer"></div>
+    <script>
+      embedPoll("#widgetContainer", [
+        {
+          pollId: "poll1",
+          pollQuestion: "What's your favorite color?",
+          pollOptions: ["Red", "Blue", "Green", "Yellow"],
+        },
+        {
+          pollId: "poll2",
+          pollQuestion: "What's your favorite fruit?",
+          pollOptions: ["Apple", "Banana", "Mango", "Grapes", "Kiwi"],
+        },
+        {
+          pollId: "poll2",
+          pollQuestion: "What's your favorite fruit?",
+          pollOptions: ["Apple", "Banana", "Mango", "Grapes"],
+        },
+      ]);
+    </script>
+  </body>
+</html>
