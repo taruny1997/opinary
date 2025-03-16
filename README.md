@@ -1,7 +1,7 @@
 # Poll Widget (TypeeScript + JEST)
 # Overview
 
-This is a simple and reusable poll widget built using typescript. It allows users to vote on a question, stores their responses in local storage, and displays real-time results. Users are allowed to vote again after refreshing the page or by undo their previous vote. It is easy to embed on any HTML page without using iframes.
+This is a simple and reusable poll widget built using typescript. It allows users to vote on a poll by selecting one of the options, stores their responses in local storage, and displays real-time results. Users are allowed to vote again after refreshing the page or by undo their previous vote. It is easy to embed on any HTML page without using iframes.
 
 # Features
 
@@ -69,7 +69,7 @@ If modification made to the widget, run following commands:
 npm i
 ```
 
-To convert the typescript code to mative javascript and minify the widget file
+To convert the typescript code to native javascript and minify the widget file
 ```
 npm run build
 ```
